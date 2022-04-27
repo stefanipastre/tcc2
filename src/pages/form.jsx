@@ -1,15 +1,15 @@
 import React from 'react'
 import ScrollToTop from '../components/ScrollToTop'
-import Login from '../Login'
+import Form from '../form'
 
 
-const SigninPage = () => {
+const FormPage = () => {
   return (
     <>
     <ScrollToTop />
-      <Login />
+      <Form />
     </>
   )
 }
 
-export default SigninPage
+export default FormPage
