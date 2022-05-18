@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Container from '@material-ui/core/Container';
 import AddItem from "./Add.tsx";
-import ListItems from "./List.tsx";
+import ShowItems from "./List.tsx";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -57,7 +57,6 @@ const Form = () => {
     <Container> 
       <h2>Descreva as situações de Risco e Desvios de Comportamento</h2>
       <AddItem />
-      <ListItems />
     
     </Container>
   );

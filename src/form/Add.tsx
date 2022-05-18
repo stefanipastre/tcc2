@@ -2,17 +2,21 @@ import React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createTodo } from "../graphql/mutations";
 import '@aws-amplify/ui-react/styles.css';
-import { v4 as uuidv4 } from 'uuid';
-import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import RemoveIcon from '@material-ui/icons/Remove';
-import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
-
-
 import { makeStyles } from '@material-ui/core/styles';
+
+
+var AWS = require("aws-sdk");
+let awsConfig = {
+    "region": "us-east-2",
+    "endpoint": "http://dynamodb.us-east-2.amazonaws.com",
+    "accessKeyId": "AKIA5T4Y5EXGIGVWWZIH", "secretAccessKey": "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"
+};
+AWS.config.update(awsConfig);
+
+let docClient = new AWS.DynamoDB.DocumentClient();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +34,24 @@ const AddItem = () => {
   const [item, setItem] = React.useState<string>();
 
   const save = async () => {
+    const randomNumber = Math.random()
     const data = { name: item };
     try {
+      var input = {
+        "id": randomNumber, "descricao": item
+    };
+    var params = {
+        TableName: "casos_risco_tcc2",
+        Item:  input
+    };
+    docClient.put(params, function (err, data) {
+
+        if (err) {
+            console.log("users::saving::error - " + JSON.stringify(err, null, 2));                      
+        } else {
+            console.log("users::saving::success" );                      
+        }
+    });
       await API.graphql(graphqlOperation(createTodo, { input: data }));
       console.log("Success!");
     } catch (e) {
@@ -59,5 +79,4 @@ const AddItem = () => {
     </div>
   );
 };
-
 export default AddItem;
