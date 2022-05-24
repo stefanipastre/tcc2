@@ -63,8 +63,10 @@ const AddItem = () => {
     <div>
      
           <TextField
+              type="text"
               name="firstName"
               label="Situação de Risco"
+              value={item}
               input onChange={e => setItem(e.target.value)}
             />
       
@@ -74,9 +76,14 @@ const AddItem = () => {
           color="primary" 
           type="submit" 
           endIcon={<Icon>send</Icon>}
-          onClick={() => save()}
+          onClick={() => {
+            save()
+            setItem("")
+          }}
+          
         >Adicionar</Button>
     </div>
-  );
+  )
 };
+
 export default AddItem;
