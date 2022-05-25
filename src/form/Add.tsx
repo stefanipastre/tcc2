@@ -52,6 +52,7 @@ const AddItem = () => {
             console.log("users::saving::success" );                      
         }
     });
+    
       await API.graphql(graphqlOperation(createTodo, { input: data }));
       console.log("Success!");
     } catch (e) {

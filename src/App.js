@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route} from  'react-router-dom'
 import Home from './pages';
 import SigninPage from './pages/signin';
 import FormPage from './pages/form';
+import Profile from './pages/profile';
 
 function App() {
   return (

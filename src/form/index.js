@@ -51,13 +51,15 @@ const Form = () => {
     values.splice(values.findIndex(value => value.id === id), 1);
     setInputFields(values);
   }
+  
 
   return (
       
     <Container> 
       <h2>Descreva as situações de Risco e Desvios de Comportamento</h2>
       <AddItem />
-    
+      <ShowItems />
+
     </Container>
   );
 }

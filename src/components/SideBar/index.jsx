@@ -1,5 +1,6 @@
 import React from 'react'
 import { SidebarContainer, Icon, CloseIcon, SidebarWrapper, SidebarMenu, SidebarLink, SidebarRoute, SideBtnWrap } from './SidebarElements'
+import Profile from '../../pages/profile'
 
 const Sidebar = ({isOpen,toggle}) => {
   return (
@@ -15,7 +16,7 @@ const Sidebar = ({isOpen,toggle}) => {
           <SidebarLink to='signup' onClick={toggle}>Relatório</SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-          <SidebarRoute to='/signin'>Entrar</SidebarRoute>
+          <SidebarRoute to='/profile'>Entrar</SidebarRoute>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>
