@@ -9,12 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 var AWS = require("aws-sdk");
-let awsConfig = {
-    "region": "us-east-2",
-    "endpoint": "http://dynamodb.us-east-2.amazonaws.com",
-    "accessKeyId": "", "secretAccessKey": ""
-};
-AWS.config.update(awsConfig);
+var AWSx = require("aws-sdk");
+
 
 let docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -28,14 +24,32 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   }
 }))
+const ID = '';
+const SECRET = '';
+const BUCKET_NAME = 'new-files-tcc-2-new';
+const s3 = new AWSx.S3({
+    accessKeyId: ID,
+    secretAccessKey: SECRET
+});
+const randomNumber = Math.random()
 
 const AddItem = () => {
   const classes = useStyles()
   const [item, setItem] = React.useState<string>();
-
+  const [item2, setItem2] = React.useState<string>();
+  
   const save = async () => {
-    const randomNumber = Math.random()
-    const data = { name: item };
+    const params2 = {
+      Bucket: BUCKET_NAME,
+      Key: item2 + '/' + randomNumber + '.csv',
+      Body: item
+    };
+    s3.upload(params2, function(err, data3) {
+      if (err) {
+          throw err;
+      }
+      console.debug(`File uploaded successfully. ${data3.Location}`);
+    });
     try {
       var input = {
         "id": randomNumber, "descricao": item
@@ -70,6 +84,13 @@ const AddItem = () => {
               value={item}
               input onChange={e => setItem(e.target.value)}
             />
+            <TextField
+              type="text"
+              name="firstName"
+              label="Empresa"
+              value={item2}
+              input onChange={j => setItem2(j.target.value)}
+            />
       
       <Button
       className={classes.button}
@@ -80,6 +101,7 @@ const AddItem = () => {
           onClick={() => {
             save()
             setItem("")
+            setItem2("")
           }}
           
         >Adicionar</Button>
