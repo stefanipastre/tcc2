@@ -34,11 +34,8 @@ const LogoutButton = () => {
     isAuthenticated && (
     <>
       <Button onClick={() => logout()}>
-        Você já está conectado. Clique aqui para sair de sua conta.
+        Sair
       </Button>
-      <Icon to='/form'>
-        Para continuar com a conta atual, clique aqui.
-      </Icon>
     </>
     )
   )

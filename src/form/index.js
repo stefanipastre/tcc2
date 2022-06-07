@@ -51,7 +51,7 @@ const Form = () => {
     values.splice(values.findIndex(value => value.id === id), 1);
     setInputFields(values);
   }
-  
+ 
 
   return (
       

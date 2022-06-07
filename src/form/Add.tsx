@@ -31,7 +31,6 @@ const s3 = new AWSx.S3({
     accessKeyId: ID,
     secretAccessKey: SECRET
 });
-const randomNumber = Math.random()
 
 const AddItem = () => {
   const classes = useStyles()
@@ -39,6 +38,7 @@ const AddItem = () => {
   const [item2, setItem2] = React.useState<string>();
   
   const save = async () => {
+    const randomNumber = Math.random()
     const params2 = {
       Bucket: BUCKET_NAME,
       Key: item2 + '/' + randomNumber + '.csv',
@@ -50,7 +50,32 @@ const AddItem = () => {
       }
       console.debug(`File uploaded successfully. ${data3.Location}`);
     });
+    const params3 = {
+      Bucket: BUCKET_NAME,
+      Key:  'empresa.csv',
+      Body: item2
+    };
+    s3.upload(params3, function(err, data4) {
+      if (err) {
+          throw err;
+      }
+      console.debug(`File uploaded successfully. ${data4.Location}`);
+    });
     try {
+      const { spawn } = require('child_process');
+      const childPython = spawn('python.exe', ['src/form/machineLearning.py']);
+      childPython.stdout.on('data', (data) => {
+          console.log(`stdout: ${data}`);
+      });
+          
+      childPython.stderr.on('data', (data) => {
+          console.error(`stderr: ${data}`);
+      });
+          
+      childPython.on('close', (code) => {
+          console.log(`child process exited with code ${code}`);
+      });
+
       var input = {
         "id": randomNumber, "descricao": item
     };

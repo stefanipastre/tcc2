@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Button = styled.button`
+const Button = styled(Link)`
 border-radius: 10%;
 background-color: white;
 color: black;
@@ -18,7 +19,8 @@ const LoginButton = () => {
 
   return (
     !isAuthenticated && (
-      <Button onClick={() => loginWithRedirect()}>
+      <Button onClick={() => loginWithRedirect()}
+      to='/form'>
         Entre em sua conta aqui!
       </Button>
     )
