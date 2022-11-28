@@ -1,8 +1,4 @@
 import React from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { listTodos } from "../graphql/queries";
-import { Square } from "@mui/icons-material";
-import { Container, FormWrap, Icon, FormContent, Form, FormInput, FormH1, FormLabel, FormButton, Text } from './SigninElements'
 
 export interface GraphQLResult {
   data?: Record<string, any>;
@@ -13,9 +9,9 @@ export interface GraphQLResult {
 }
 
 const ShowItems = () => {
-  const [list, setList] = React.useState<GraphQLResult>();
+  const [list] = React.useState<GraphQLResult>();
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     const fetch = async () => {
       try {
         let result = await API.graphql(graphqlOperation(listTodos));
@@ -25,10 +21,9 @@ const ShowItems = () => {
       }
     };
     fetch();
-  }, [list]);
+  }, [list]); */
 
   if (list) {
-    const toDoList = list.data?.data.listTodos;
     return (
       
       <div>

@@ -1,18 +1,10 @@
 import React from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { createTodo } from "../graphql/mutations";
-import '@aws-amplify/ui-react/styles.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-var AWS = require("aws-sdk");
 var AWSx = require("aws-sdk");
-
-
-let docClient = new AWS.DynamoDB.DocumentClient();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const ID = '';
 const SECRET = '';
-const BUCKET_NAME = 'new-files-tcc-2-new';
+const BUCKET_NAME = '';
 const s3 = new AWSx.S3({
     accessKeyId: ID,
     secretAccessKey: SECRET
@@ -50,6 +42,7 @@ const AddItem = () => {
       }
       console.debug(`File uploaded successfully. ${data3.Location}`);
     });
+    
     const params3 = {
       Bucket: BUCKET_NAME,
       Key:  'empresa.csv',
@@ -61,42 +54,6 @@ const AddItem = () => {
       }
       console.debug(`File uploaded successfully. ${data4.Location}`);
     });
-    try {
-      const { spawn } = require('child_process');
-      const childPython = spawn('python.exe', ['src/form/machineLearning.py']);
-      childPython.stdout.on('data', (data) => {
-          console.log(`stdout: ${data}`);
-      });
-          
-      childPython.stderr.on('data', (data) => {
-          console.error(`stderr: ${data}`);
-      });
-          
-      childPython.on('close', (code) => {
-          console.log(`child process exited with code ${code}`);
-      });
-
-      var input = {
-        "id": randomNumber, "descricao": item
-    };
-    var params = {
-        TableName: "casos_risco_tcc2",
-        Item:  input
-    };
-    docClient.put(params, function (err, data) {
-
-        if (err) {
-            console.log("users::saving::error - " + JSON.stringify(err, null, 2));                      
-        } else {
-            console.log("users::saving::success" );                      
-        }
-    });
-    
-      await API.graphql(graphqlOperation(createTodo, { input: data }));
-      console.log("Success!");
-    } catch (e) {
-      console.log("Error!");
-    }
   };
 
   return (
