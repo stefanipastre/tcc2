@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^4.3.22",
     "aws-sdk": "^2.1137.0",
+    "memfs": "^3.5.1",
     "python-shell": "^3.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -40,9 +41,9 @@
       "react-app/jest"
     ]
   },
-  "browser":{
+  "browser": {
     "child_process": false
-    },  
+  },
   "browserslist": {
     "production": [
       ">0.2%",
